@@ -2,10 +2,23 @@
 
 import sys
 
-def making_change(amount, denominations):
-  # Your code here
-
-  pass
+def making_change(amount, denominations, cache = {}):
+    if amount == 0:
+        return 1
+    elif amount < 0:
+        return 0
+    else:
+        if amount in cache.keys():
+            return cache[amount]
+        else:
+            total = 0
+            for denom in denominations:
+                value = making_change(amount - denom, denominations)
+                # print(f'Amount: {amount - denom} returned: {value} for Denom: {denom}')
+                cache[amount - denom] = value
+                total += value
+            print(f'Total: {total}')
+            return total
 
 
 if __name__ == "__main__":
